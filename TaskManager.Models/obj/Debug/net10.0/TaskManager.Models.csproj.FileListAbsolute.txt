@@ -1,0 +1,11 @@
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/bin/Debug/net10.0/TaskManager.Models.deps.json
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/bin/Debug/net10.0/TaskManager.Models.dll
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/bin/Debug/net10.0/TaskManager.Models.pdb
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/obj/Debug/net10.0/TaskManager.Models.GeneratedMSBuildEditorConfig.editorconfig
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/obj/Debug/net10.0/TaskManager.Models.AssemblyInfoInputs.cache
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/obj/Debug/net10.0/TaskManager.Models.AssemblyInfo.cs
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/obj/Debug/net10.0/TaskManager.Models.csproj.CoreCompileInputs.cache
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/obj/Debug/net10.0/TaskManager.Models.dll
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/obj/Debug/net10.0/refint/TaskManager.Models.dll
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/obj/Debug/net10.0/TaskManager.Models.pdb
+/Users/anastasiabakalyna/Desktop/TaskManager/TaskManager.Models/obj/Debug/net10.0/ref/TaskManager.Models.dll
