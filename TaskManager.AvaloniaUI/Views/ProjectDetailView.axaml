@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TaskManager.AvaloniaUI"
+             x:Class="TaskManager.AvaloniaUI.ProjectDetailView">
+    <Grid RowDefinitions="Auto,Auto,*">
+        <Border Grid.Row="0" Background="#34495E" Padding="16">
+            <StackPanel>
+                <TextBlock x:Name="ProjectTypeLabel" Foreground="#BDC3C7" FontSize="12"/>
+                <TextBlock x:Name="ProjectDescLabel" Foreground="#ECF0F1" FontSize="13" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                <ProgressBar x:Name="ProjectProgress" Minimum="0" Maximum="100" Height="6" Foreground="#27AE60" Margin="0,10,0,4"/>
+                <TextBlock x:Name="ProjectProgressLabel" Foreground="#27AE60" FontSize="12"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1" Padding="16,12,16,4">
+            <TextBlock Text="Завдання" FontSize="15" FontWeight="Bold" Foreground="#2C3E50"/>
+        </Border>
+        <ScrollViewer Grid.Row="2" Padding="12,0">
+            <ItemsControl x:Name="TasksList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="local:TaskListItem">
+                        <Button Command="{Binding SelectCommand}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,4" Padding="0">
+                            <Border Background="White" CornerRadius="8" Padding="14">
+                                <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding StatusIcon}" FontSize="16" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}" FontSize="14" FontWeight="Bold" Foreground="#2C3E50" VerticalAlignment="Center"/>
+                                    <Border Grid.Row="0" Grid.Column="2" Background="{Binding PriorityColor}" CornerRadius="4" Padding="6,2">
+                                        <TextBlock Text="{Binding Priority}" Foreground="White" FontSize="11"/>
+                                    </Border>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding DueDateText}" FontSize="12" Foreground="#95A5A6" Margin="0,4,0,0"/>
+                                </Grid>
+                            </Border>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

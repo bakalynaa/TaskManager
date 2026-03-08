@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TaskManager.AvaloniaUI.TaskDetailView">
+
+    <ScrollViewer Padding="16">
+        <StackPanel Spacing="12">
+            
+            <Border x:Name="StatusBadge" CornerRadius="8" Padding="12" HorizontalAlignment="Stretch">
+                <TextBlock x:Name="StatusLabel" FontSize="16" FontWeight="Bold"
+                           Foreground="White" HorizontalAlignment="Center"/>
+            </Border>
+            
+            <TextBlock x:Name="TitleLabel" FontSize="22" FontWeight="Bold"
+                       Foreground="#2C3E50" TextAlignment="Center" TextWrapping="Wrap"/>
+            
+            <Border Background="White" CornerRadius="10" Padding="16">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*">
+                    <Grid.Styles>
+                        <Style Selector="TextBlock.label">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Foreground" Value="#7F8C8D"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0,0,16,8"/>
+                        </Style>
+                        <Style Selector="TextBlock.value">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Foreground" Value="#2C3E50"/>
+                            <Setter Property="Margin" Value="0,0,0,8"/>
+                        </Style>
+                    </Grid.Styles>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Пріоритет:" Classes="label"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" x:Name="PriorityLabel" Classes="value"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Дедлайн:" Classes="label"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" x:Name="DueDateLabel" Classes="value"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Виконано:" Classes="label"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" x:Name="CompletedLabel" Classes="value"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Прострочено:" Classes="label"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" x:Name="OverdueLabel" Classes="value"/>
+                </Grid>
+            </Border>
+            
+            <TextBlock Text="Опис" FontSize="15" FontWeight="Bold" Foreground="#2C3E50"/>
+            <Border Background="White" CornerRadius="10" Padding="16">
+                <TextBlock x:Name="DescriptionLabel" FontSize="14"
+                           Foreground="#555" TextWrapping="Wrap"/>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

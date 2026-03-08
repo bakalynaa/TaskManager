@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="TaskManager.AvaloniaUI.MainWindow"
+        Title="Task Manager"
+        Width="900" Height="650"
+        MinWidth="600" MinHeight="400"
+        Background="#F5F6FA">
+    <Grid RowDefinitions="Auto,*">
+        <Border Grid.Row="0" Background="#2C3E50" Padding="16,12">
+            <Grid ColumnDefinitions="Auto,*">
+                <Button Grid.Column="0"
+                        x:Name="BackButton"
+                        Content="← Назад"
+                        IsVisible="False"
+                        Click="OnBackClicked"
+                        Background="Transparent"
+                        Foreground="White"
+                        FontSize="14"
+                        Padding="8,4"/>
+                <TextBlock Grid.Column="1"
+                           x:Name="TitleLabel"
+                           Text="Task Manager"
+                           Foreground="White"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+        <ContentControl Grid.Row="1" x:Name="ContentArea"/>
+    </Grid>
+</Window>

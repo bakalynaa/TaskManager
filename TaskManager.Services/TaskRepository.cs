@@ -7,7 +7,7 @@ namespace TaskManager.Services;
 // Єдиний клас, який має доступ до FakeStorage.
 // Відповідає за отримання та перетворення Entity у ViewModel.
 
-public class TaskRepository
+public class TaskRepository : ITaskRepository
 {
     // Повертає всі проєкти у вигляді ViewModel (без завдань).
     // Завдання завантажуються окремо через LoadTasksForProject (lazy loading).
