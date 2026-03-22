@@ -5,6 +5,7 @@
         Width="900" Height="650"
         MinWidth="600" MinHeight="400"
         Background="#F5F6FA">
+
     <Grid RowDefinitions="Auto,*">
         <Border Grid.Row="0" Background="#2C3E50" Padding="16,12">
             <Grid ColumnDefinitions="Auto,*">

@@ -1,26 +1,44 @@
 using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using TaskManager.Services;
+using TaskManager.AvaloniaUI.ViewModels;
+using TaskManager.AvaloniaUI.Views;
+using TaskManager.Services.Services;
 
 namespace TaskManager.AvaloniaUI;
 
 /// <summary>
-/// Головне вікно застосунку. Відповідає за навігацію між сторінками.
+/// Головне вікно. Відповідає за навігацію через стек сторінок.
+/// Отримує сервіси через DI.
 /// </summary>
 public partial class MainWindow : Window
 {
-    private readonly ITaskRepository _repository;
+    private readonly IProjectService _projectService;
+    private readonly ITaskService _taskService;
     private readonly Stack<Control> _navigationStack = new();
 
-    public MainWindow(ITaskRepository repository)
+    public MainWindow(IProjectService projectService, ITaskService taskService)
     {
         InitializeComponent();
-        _repository = repository;
-        NavigateTo(new ProjectsView(_repository, this), "Task Manager");
+        _projectService = projectService;
+        _taskService = taskService;
+
+        NavigateTo(new ProjectsView(new ProjectsViewModel(_projectService, NavigateToProject)), "Task Manager");
     }
 
-    public void NavigateTo(Control view, string title)
+    private void NavigateToProject(int projectId)
+    {
+        var vm = new ProjectDetailViewModel(_projectService, projectId, NavigateToTask);
+        NavigateTo(new ProjectDetailView(vm), vm.Project?.Name ?? "Проєкт");
+    }
+
+    private void NavigateToTask(int taskId)
+    {
+        var vm = new TaskDetailViewModel(_taskService, taskId);
+        NavigateTo(new TaskDetailView(vm), vm.Task?.Title ?? "Завдання");
+    }
+
+    private void NavigateTo(Control view, string title)
     {
         if (ContentArea.Content is Control current)
             _navigationStack.Push(current);

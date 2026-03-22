@@ -1,16 +1,23 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TaskManager.AvaloniaUI"
-             x:Class="TaskManager.AvaloniaUI.ProjectsView">
+             xmlns:vm="clr-namespace:TaskManager.AvaloniaUI.ViewModels;assembly=TaskManager.AvaloniaUI"
+             xmlns:dto="clr-namespace:TaskManager.Services.DTOs;assembly=TaskManager.Services"
+             x:Class="TaskManager.AvaloniaUI.Views.ProjectsView"
+             x:DataType="vm:ProjectsViewModel">
     <Grid RowDefinitions="Auto,*">
         <Border Grid.Row="0" Background="#34495E" Padding="16,10">
             <TextBlock Text="Оберіть проєкт для перегляду" Foreground="#BDC3C7" FontSize="13"/>
         </Border>
         <ScrollViewer Grid.Row="1" Padding="12">
-            <ItemsControl x:Name="ProjectsList">
+            <ItemsControl ItemsSource="{Binding Projects}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="local:ProjectListItem">
-                        <Button Command="{Binding SelectCommand}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,6" Padding="0">
+                    <DataTemplate x:DataType="dto:ProjectListDto">
+                        <Button Command="{Binding $parent[UserControl].((vm:ProjectsViewModel)DataContext).SelectProjectCommand}"
+                                CommandParameter="{Binding}"
+                                Background="Transparent" BorderThickness="0"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                Margin="0,6" Padding="0">
                             <Border Background="White" CornerRadius="8" Padding="16">
                                 <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
                                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="#2C3E50"/>

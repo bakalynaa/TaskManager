@@ -1,24 +1,31 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TaskManager.AvaloniaUI"
-             x:Class="TaskManager.AvaloniaUI.ProjectDetailView">
+             xmlns:vm="clr-namespace:TaskManager.AvaloniaUI.ViewModels;assembly=TaskManager.AvaloniaUI"
+             xmlns:dto="clr-namespace:TaskManager.Services.DTOs;assembly=TaskManager.Services"
+             x:Class="TaskManager.AvaloniaUI.Views.ProjectDetailView"
+             x:DataType="vm:ProjectDetailViewModel">
     <Grid RowDefinitions="Auto,Auto,*">
         <Border Grid.Row="0" Background="#34495E" Padding="16">
             <StackPanel>
-                <TextBlock x:Name="ProjectTypeLabel" Foreground="#BDC3C7" FontSize="12"/>
-                <TextBlock x:Name="ProjectDescLabel" Foreground="#ECF0F1" FontSize="13" Margin="0,6,0,0" TextWrapping="Wrap"/>
-                <ProgressBar x:Name="ProjectProgress" Minimum="0" Maximum="100" Height="6" Foreground="#27AE60" Margin="0,10,0,4"/>
-                <TextBlock x:Name="ProjectProgressLabel" Foreground="#27AE60" FontSize="12"/>
+                <TextBlock Text="{Binding Project.Type}" Foreground="#BDC3C7" FontSize="12"/>
+                <TextBlock Text="{Binding Project.Description}" Foreground="#ECF0F1" FontSize="13" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                <ProgressBar Value="{Binding Project.Progress}" Minimum="0" Maximum="100" Height="6" Foreground="#27AE60" Margin="0,10,0,4"/>
+                <TextBlock Text="{Binding Project.ProgressText}" Foreground="#27AE60" FontSize="12"/>
             </StackPanel>
         </Border>
         <Border Grid.Row="1" Padding="16,12,16,4">
             <TextBlock Text="Завдання" FontSize="15" FontWeight="Bold" Foreground="#2C3E50"/>
         </Border>
         <ScrollViewer Grid.Row="2" Padding="12,0">
-            <ItemsControl x:Name="TasksList">
+            <ItemsControl ItemsSource="{Binding Project.Tasks}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="local:TaskListItem">
-                        <Button Command="{Binding SelectCommand}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,4" Padding="0">
+                    <DataTemplate x:DataType="dto:TaskListDto">
+                        <Button Command="{Binding $parent[UserControl].((vm:ProjectDetailViewModel)DataContext).SelectTaskCommand}"
+                                CommandParameter="{Binding}"
+                                Background="Transparent" BorderThickness="0"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                Margin="0,4" Padding="0">
                             <Border Background="White" CornerRadius="8" Padding="14">
                                 <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
                                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding StatusIcon}" FontSize="16" VerticalAlignment="Center" Margin="0,0,10,0"/>

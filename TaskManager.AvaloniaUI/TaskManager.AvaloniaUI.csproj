@@ -24,5 +24,6 @@
     <ProjectReference Include="..\TaskManager.Models\TaskManager.Models.csproj" />
     <ProjectReference Include="..\TaskManager.ViewModels\TaskManager.ViewModels.csproj" />
     <ProjectReference Include="..\TaskManager.Services\TaskManager.Services.csproj" />
+    <ProjectReference Include="..\TaskManager.Repositories\TaskManager.Repositories.csproj" />
   </ItemGroup>
 </Project>
