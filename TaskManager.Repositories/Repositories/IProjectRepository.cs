@@ -3,11 +3,13 @@ using TaskManager.Repositories.Models;
 namespace TaskManager.Repositories.Repositories;
 
 /// <summary>
-/// Інтерфейс репозиторію проєктів.
-/// Забезпечує Dependency Inversion — сервіси залежать від абстракції.
+/// Інтерфейс репозиторію проєктів з асинхронними CRUD операціями.
 /// </summary>
 public interface IProjectRepository
 {
-    List<ProjectEntity> GetAll();
-    ProjectEntity? GetById(int id);
+    Task<List<ProjectEntity>> GetAllAsync();
+    Task<ProjectEntity?> GetByIdAsync(int id);
+    Task<ProjectEntity> AddAsync(ProjectEntity entity);
+    Task UpdateAsync(ProjectEntity entity);
+    Task DeleteAsync(int id);
 }

@@ -1,8 +1,6 @@
 namespace TaskManager.Services.DTOs;
 
-/// <summary>
-/// DTO для відображення завдання в списку — лише необхідні поля.
-/// </summary>
+/// <summary>DTO для відображення завдання в списку</summary>
 public class TaskListDto
 {
     public int Id { get; init; }
@@ -13,9 +11,7 @@ public class TaskListDto
     public string PriorityColor { get; init; } = "#95A5A6";
 }
 
-/// <summary>
-/// DTO для детального відображення завдання — всі поля включно з обчислюваними.
-/// </summary>
+/// <summary>DTO для детального відображення завдання</summary>
 public class TaskDetailDto
 {
     public int Id { get; init; }
@@ -27,4 +23,16 @@ public class TaskDetailDto
     public bool IsOverdue { get; init; }
     public string StatusText { get; init; } = string.Empty;
     public string StatusColor { get; init; } = "#3498DB";
+}
+
+/// <summary>DTO для форми створення/редагування завдання</summary>
+public class TaskFormDto
+{
+    public int Id { get; set; }
+    public int ProjectId { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string Priority { get; set; } = "Medium";
+    public DateTime DueDate { get; set; } = DateTime.Today.AddDays(7);
+    public bool IsCompleted { get; set; }
 }

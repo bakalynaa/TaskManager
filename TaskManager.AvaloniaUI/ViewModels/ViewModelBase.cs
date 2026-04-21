@@ -4,9 +4,6 @@ using System.Runtime.CompilerServices;
 
 namespace TaskManager.AvaloniaUI.ViewModels;
 
-/// <summary>
-/// Базовий клас для всіх ViewModels. Реалізує INotifyPropertyChanged.
-/// </summary>
 public abstract class ViewModelBase : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;

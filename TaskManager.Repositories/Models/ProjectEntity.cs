@@ -1,20 +1,18 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace TaskManager.Repositories.Models;
 
-/// <summary>
-/// DB Model проєкту — зберігає лише дані, без обчислюваних полів і без колекцій.
-/// </summary>
+/// <summary>DB Model проєкту для зберігання в SQLite через EF Core.</summary>
 public class ProjectEntity
 {
-    public int Id { get; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public ProjectType Type { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-    public ProjectEntity(int id, string name, string description, ProjectType type)
-    {
-        Id = id;
-        Name = name;
-        Description = description;
-        Type = type;
-    }
+    [Required, MaxLength(200)]
+    public string Name { get; set; } = string.Empty;
+
+    [MaxLength(1000)]
+    public string Description { get; set; } = string.Empty;
+
+    public ProjectType Type { get; set; }
 }

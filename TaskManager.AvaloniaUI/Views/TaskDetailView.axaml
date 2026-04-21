@@ -3,41 +3,46 @@
              xmlns:vm="clr-namespace:TaskManager.AvaloniaUI.ViewModels;assembly=TaskManager.AvaloniaUI"
              x:Class="TaskManager.AvaloniaUI.Views.TaskDetailView"
              x:DataType="vm:TaskDetailViewModel">
-    <ScrollViewer Padding="16">
-        <StackPanel Spacing="12">
-            <Border Background="{Binding Task.StatusColor}" CornerRadius="8" Padding="12">
-                <TextBlock Text="{Binding Task.StatusText}" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
-            </Border>
-            <TextBlock Text="{Binding Task.Title}" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center" TextWrapping="Wrap"/>
-            <Border Background="White" CornerRadius="10" Padding="16">
-                <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*">
-                    <Grid.Styles>
-                        <Style Selector="TextBlock.label">
-                            <Setter Property="FontSize" Value="14"/>
-                            <Setter Property="Foreground" Value="#7F8C8D"/>
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="Margin" Value="0,0,16,8"/>
-                        </Style>
-                        <Style Selector="TextBlock.value">
-                            <Setter Property="FontSize" Value="14"/>
-                            <Setter Property="Foreground" Value="#2C3E50"/>
-                            <Setter Property="Margin" Value="0,0,0,8"/>
-                        </Style>
-                    </Grid.Styles>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Пріоритет:" Classes="label"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Task.Priority}" Classes="value"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Дедлайн:" Classes="label"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Task.DueDate}" Classes="value"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Виконано:" Classes="label"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Task.IsCompleted}" Classes="value"/>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Прострочено:" Classes="label"/>
-                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Task.IsOverdue}" Classes="value"/>
-                </Grid>
-            </Border>
-            <TextBlock Text="Опис" FontSize="15" FontWeight="Bold" Foreground="#2C3E50"/>
-            <Border Background="White" CornerRadius="10" Padding="16">
-                <TextBlock Text="{Binding Task.Description}" FontSize="14" Foreground="#555" TextWrapping="Wrap"/>
-            </Border>
-        </StackPanel>
-    </ScrollViewer>
+
+    <Grid RowDefinitions="Auto,*">
+        <ProgressBar Grid.Row="0" IsIndeterminate="True" IsVisible="{Binding IsBusy}" Height="4"/>
+
+        <ScrollViewer Grid.Row="1" Padding="16">
+            <StackPanel Spacing="12">
+                <Border Background="{Binding Task.StatusColor}" CornerRadius="8" Padding="12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Text="{Binding Task.StatusText}" FontSize="16" FontWeight="Bold"
+                                   Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Button Grid.Column="1" Content="Редагувати"
+                                Command="{Binding EditCommand}"
+                                Background="Transparent" Foreground="White" Padding="8,4"/>
+                    </Grid>
+                </Border>
+
+                <TextBlock Text="{Binding Task.Title}" FontSize="22" FontWeight="Bold"
+                           Foreground="#2C3E50" TextAlignment="Center" TextWrapping="Wrap"/>
+
+                <Border Background="White" CornerRadius="10" Padding="16">
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*" RowSpacing="8">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Пріоритет:" FontWeight="Bold" Foreground="#7F8C8D" Margin="0,0,16,0"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Task.Priority}" Foreground="#2C3E50"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Дедлайн:" FontWeight="Bold" Foreground="#7F8C8D" Margin="0,0,16,0"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Task.DueDate}" Foreground="#2C3E50"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Виконано:" FontWeight="Bold" Foreground="#7F8C8D" Margin="0,0,16,0"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Task.IsCompleted}" Foreground="#2C3E50"/>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Прострочено:" FontWeight="Bold" Foreground="#7F8C8D" Margin="0,0,16,0"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Task.IsOverdue}" Foreground="#2C3E50"/>
+                    </Grid>
+                </Border>
+
+                <TextBlock Text="Опис" FontSize="15" FontWeight="Bold" Foreground="#2C3E50"/>
+                <Border Background="White" CornerRadius="10" Padding="16">
+                    <TextBlock Text="{Binding Task.Description}" FontSize="14" Foreground="#555" TextWrapping="Wrap"/>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

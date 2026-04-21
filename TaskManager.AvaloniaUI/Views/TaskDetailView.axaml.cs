@@ -3,14 +3,20 @@ using TaskManager.AvaloniaUI.ViewModels;
 
 namespace TaskManager.AvaloniaUI.Views;
 
-/// <summary>
-/// Code-behind містить лише ініціалізацію та задання DataContext — відповідно до MVVM.
-/// </summary>
 public partial class TaskDetailView : UserControl
 {
+    private readonly TaskDetailViewModel _viewModel;
+
     public TaskDetailView(TaskDetailViewModel viewModel)
     {
         InitializeComponent();
+        _viewModel = viewModel;
         DataContext = viewModel;
+    }
+
+    protected override void OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        _ = _viewModel.LoadAsync();
     }
 }

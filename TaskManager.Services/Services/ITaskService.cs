@@ -7,5 +7,9 @@ namespace TaskManager.Services.Services;
 /// </summary>
 public interface ITaskService
 {
-    TaskDetailDto? GetTaskDetail(int taskId);
+    Task<TaskDetailDto?> GetTaskDetailAsync(int taskId);
+    Task<TaskFormDto?> GetTaskFormAsync(int taskId);
+    Task<TaskListDto> CreateTaskAsync(TaskFormDto dto);
+    Task UpdateTaskAsync(TaskFormDto dto);
+    Task DeleteTaskAsync(int taskId);
 }

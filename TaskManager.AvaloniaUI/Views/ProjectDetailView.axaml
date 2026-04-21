@@ -4,39 +4,76 @@
              xmlns:dto="clr-namespace:TaskManager.Services.DTOs;assembly=TaskManager.Services"
              x:Class="TaskManager.AvaloniaUI.Views.ProjectDetailView"
              x:DataType="vm:ProjectDetailViewModel">
-    <Grid RowDefinitions="Auto,Auto,*">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
+
+        <!-- Інфо про проєкт -->
         <Border Grid.Row="0" Background="#34495E" Padding="16">
-            <StackPanel>
-                <TextBlock Text="{Binding Project.Type}" Foreground="#BDC3C7" FontSize="12"/>
-                <TextBlock Text="{Binding Project.Description}" Foreground="#ECF0F1" FontSize="13" Margin="0,6,0,0" TextWrapping="Wrap"/>
-                <ProgressBar Value="{Binding Project.Progress}" Minimum="0" Maximum="100" Height="6" Foreground="#27AE60" Margin="0,10,0,4"/>
-                <TextBlock Text="{Binding Project.ProgressText}" Foreground="#27AE60" FontSize="12"/>
-            </StackPanel>
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{Binding Project.Type}" Foreground="#BDC3C7" FontSize="12"/>
+                    <TextBlock Text="{Binding Project.Description}" Foreground="#ECF0F1" FontSize="13" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                    <ProgressBar Value="{Binding Project.Progress}" Minimum="0" Maximum="100" Height="6" Foreground="#27AE60" Margin="0,8,0,4"/>
+                    <TextBlock Text="{Binding Project.ProgressText}" Foreground="#27AE60" FontSize="12"/>
+                </StackPanel>
+                <Button Grid.Column="1" Content="Редагувати"
+                        Command="{Binding EditProjectCommand}"
+                        Background="#3498DB" Foreground="White"
+                        Padding="10,6" Margin="8,0,0,0" VerticalAlignment="Top"/>
+            </Grid>
         </Border>
-        <Border Grid.Row="1" Padding="16,12,16,4">
+
+        <!-- Панель пошуку завдань -->
+        <Border Grid.Row="1" Background="#ECF0F1" Padding="12,8">
+            <Grid ColumnDefinitions="*,Auto,Auto">
+                <TextBox Grid.Column="0" Text="{Binding SearchText}" Watermark="🔍 Пошук завдань..." Margin="0,0,8,0"/>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding SortLabels}"
+                          SelectedIndex="0" Width="160" Margin="0,0,8,0"
+                          SelectionChanged="OnSortChanged"/>
+                <Button Grid.Column="2" Content="+ Завдання"
+                        Command="{Binding AddTaskCommand}"
+                        Background="#27AE60" Foreground="White" Padding="12,6"/>
+            </Grid>
+        </Border>
+
+        <!-- Індикатор завантаження -->
+        <ProgressBar Grid.Row="2" IsIndeterminate="True" IsVisible="{Binding IsBusy}" Height="4"/>
+
+        <!-- Заголовок -->
+        <Border Grid.Row="3" Padding="16,10,16,4">
             <TextBlock Text="Завдання" FontSize="15" FontWeight="Bold" Foreground="#2C3E50"/>
         </Border>
-        <ScrollViewer Grid.Row="2" Padding="12,0">
-            <ItemsControl ItemsSource="{Binding Project.Tasks}">
+
+        <!-- Список завдань -->
+        <ScrollViewer Grid.Row="4" Padding="12,0">
+            <ItemsControl ItemsSource="{Binding FilteredTasks}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="dto:TaskListDto">
-                        <Button Command="{Binding $parent[UserControl].((vm:ProjectDetailViewModel)DataContext).SelectTaskCommand}"
-                                CommandParameter="{Binding}"
-                                Background="Transparent" BorderThickness="0"
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch"
-                                Margin="0,4" Padding="0">
-                            <Border Background="White" CornerRadius="8" Padding="14">
-                                <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding StatusIcon}" FontSize="16" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}" FontSize="14" FontWeight="Bold" Foreground="#2C3E50" VerticalAlignment="Center"/>
-                                    <Border Grid.Row="0" Grid.Column="2" Background="{Binding PriorityColor}" CornerRadius="4" Padding="6,2">
-                                        <TextBlock Text="{Binding Priority}" Foreground="White" FontSize="11"/>
-                                    </Border>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding DueDateText}" FontSize="12" Foreground="#95A5A6" Margin="0,4,0,0"/>
-                                </Grid>
-                            </Border>
-                        </Button>
+                        <Border Background="White" CornerRadius="8" Margin="0,4" Padding="14">
+                            <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding StatusIcon}"
+                                           FontSize="16" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Title}"
+                                           FontSize="14" FontWeight="Bold" Foreground="#2C3E50" VerticalAlignment="Center"/>
+                                <Border Grid.Row="0" Grid.Column="2" Background="{Binding PriorityColor}"
+                                        CornerRadius="4" Padding="6,2" Margin="4,0">
+                                    <TextBlock Text="{Binding Priority}" Foreground="White" FontSize="11"/>
+                                </Border>
+                                <Button Grid.Row="0" Grid.Column="3" Content="🗑"
+                                        Command="{Binding $parent[UserControl].((vm:ProjectDetailViewModel)DataContext).DeleteTaskCommand}"
+                                        CommandParameter="{Binding}"
+                                        Background="Transparent" Foreground="#E74C3C" Padding="4"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
+                                           Text="{Binding DueDateText}" FontSize="12" Foreground="#95A5A6" Margin="0,4,0,0"/>
+
+                                <!-- Прозора кнопка переходу -->
+                                <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                        Command="{Binding $parent[UserControl].((vm:ProjectDetailViewModel)DataContext).SelectTaskCommand}"
+                                        CommandParameter="{Binding}"
+                                        Background="Transparent" Opacity="0"
+                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

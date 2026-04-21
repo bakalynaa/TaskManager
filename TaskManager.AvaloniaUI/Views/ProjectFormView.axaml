@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:TaskManager.AvaloniaUI.ViewModels;assembly=TaskManager.AvaloniaUI"
+             x:Class="TaskManager.AvaloniaUI.Views.ProjectFormView"
+             x:DataType="vm:ProjectFormViewModel">
+
+    <Grid RowDefinitions="Auto,*">
+        <ProgressBar Grid.Row="0" IsIndeterminate="True" IsVisible="{Binding IsBusy}" Height="4"/>
+
+        <ScrollViewer Grid.Row="1" Padding="16">
+            <StackPanel Spacing="12" MaxWidth="600">
+
+                <TextBlock Text="{Binding Title}" FontSize="20" FontWeight="Bold" Foreground="#2C3E50"/>
+
+                <TextBlock Text="Назва *" FontWeight="Bold" Foreground="#7F8C8D"/>
+                <TextBox Text="{Binding Name}" Watermark="Введіть назву проєкту"/>
+
+                <TextBlock Text="Опис" FontWeight="Bold" Foreground="#7F8C8D"/>
+                <TextBox Text="{Binding Description}" Watermark="Введіть опис" Height="80" AcceptsReturn="True"/>
+
+                <TextBlock Text="Тип проєкту" FontWeight="Bold" Foreground="#7F8C8D"/>
+                <ComboBox ItemsSource="{Binding TypeLabels}" Width="300"
+                          SelectionChanged="OnTypeChanged" x:Name="TypeComboBox"/>
+
+                <Button Content="💾 Зберегти"
+                        Command="{Binding SaveCommand}"
+                        Background="#27AE60" Foreground="White"
+                        Padding="16,8" HorizontalAlignment="Left"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

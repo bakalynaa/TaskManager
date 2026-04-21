@@ -3,10 +3,13 @@ using TaskManager.Repositories.Models;
 namespace TaskManager.Repositories.Repositories;
 
 /// <summary>
-/// Інтерфейс репозиторію завдань.
+/// Інтерфейс репозиторію завдань з асинхронними CRUD операціями.
 /// </summary>
 public interface ITaskRepository
 {
-    List<TaskEntity> GetByProjectId(int projectId);
-    TaskEntity? GetById(int id);
+    Task<List<TaskEntity>> GetByProjectIdAsync(int projectId);
+    Task<TaskEntity?> GetByIdAsync(int id);
+    Task<TaskEntity> AddAsync(TaskEntity entity);
+    Task UpdateAsync(TaskEntity entity);
+    Task DeleteAsync(int id);
 }
